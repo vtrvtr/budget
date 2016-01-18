@@ -9,8 +9,18 @@ except ImportError:
     from backend import Budget, Produto
 
 
+
+
+
+
+
 if __name__ == '__main__':
-    
+    parser = argparse.ArgumentParser(description='Manipulate the budget.csv table')
+    parser.add_argument('--add', '-a', help='add new product to the table', nargs='+')
+    parser.add_argument('--show', 's', help='show information')
+    args = parser.parse_args()
+
+
 
 
 

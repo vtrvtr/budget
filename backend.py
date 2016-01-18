@@ -6,7 +6,7 @@ from datetime import datetime, date
 from collections import OrderedDict
 
 
-csv_location = 'E:\Code\\orcamento\\orcamento.csv'
+csv_location = 'E:\Code\\budget\\budget.csv'
 current_date = datetime.now()
 
 
@@ -27,7 +27,7 @@ class Produto():
                             ])
 
 
-class Orcamento():
+class Budget():
     def __init__(self):
         today = date.today()
         self.dias = monthrange(today.year, today.month)[1]
@@ -40,6 +40,9 @@ class Orcamento():
             self.df = pd.DataFrame(data=produto, columns=self.columns)
             self.df.to_csv(csv_location, ignore_index=True, encoding='utf-8')
 
+    def calculate_total(self):
+        return self.df['Custo mensal'].sum()
+
     def add(self, produto):
         self.df = pd.DataFrame(data=produto(), columns=self.columns)
         try:
@@ -49,6 +52,8 @@ class Orcamento():
             self.df['Custo mensal'] = produto.custo
         self.df.to_csv(
             csv_location, ignore_index=False, header=False, mode='a', encoding='utf-8')
+        # self.df.append(calculate_total(), ignore_index=True)
+
 
     def __str__(self):
         final_output = ''
@@ -56,3 +61,7 @@ class Orcamento():
             final_output += '{}'.format(row)
         return final_output
 
+
+o = Budget()
+# print(o)
+print(o.calculate_total())
